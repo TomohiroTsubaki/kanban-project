@@ -66,6 +66,12 @@ class TaskController extends Controller
         ]);
     }
 
+    public function create()
+    {
+        $pageTitle = 'Create Task';
+        return view('tasks.create', ['pageTitle' => $pageTitle]);
+    }
+
     public function edit($id)
     {
         $pageTitle = 'Edit Task';
