@@ -68,7 +68,7 @@ class TaskController extends Controller
 
     public function create()
     {
-        $pageTitle = 'Task List';
+        $pageTitle = 'Create Task';
         return view('tasks.create', ['pageTitle' => $pageTitle]);
     }
 
