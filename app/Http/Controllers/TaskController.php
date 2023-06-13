@@ -27,6 +27,18 @@ class TaskController extends Controller
         return view('tasks.create', ['pageTitle' => $pageTitle]);
     }
 
+    public function store(Request $request)
+    {
+        Task::create([
+            'name' => $request->name,
+            'detail' => $request->detail,
+            'due_date' => $request->due_date,
+            'status' => $request->status,
+        ]);
+
+        return redirect()->route('tasks.index');
+    }
+
     public function edit($id)
     {
         $pageTitle = 'Edit Task';

@@ -7,7 +7,7 @@
     <h1 class="form-title">{{ $pageTitle }}</h1>
     <form class="form">
       <div class="form-item">
-        <label>Title:</label>
+        <label>Name:</label>
         <input
           class="form-input"
           type="text"
