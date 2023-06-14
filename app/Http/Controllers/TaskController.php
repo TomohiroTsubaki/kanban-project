@@ -29,6 +29,15 @@ class TaskController extends Controller
 
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'due_date' => 'required',
+                'status' => 'required',
+            ],
+            $request->all()
+        );
+
         Task::create([
             'name' => $request->name,
             'detail' => $request->detail,
@@ -49,7 +58,17 @@ class TaskController extends Controller
 
     public function update(Request $request, $id)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'due_date' => 'required',
+                'status' => 'required',
+            ],
+            $request->all()
+        );
+
         $task = Task::find($id);
+
         $task->update([
             'name' => $request->name,
             'detail' => $request->detail,
