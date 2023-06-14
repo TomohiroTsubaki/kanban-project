@@ -9,27 +9,41 @@
       @csrf
       <div class="form-item">
         <label>Name:</label>
-        <input class="form-input" type="text" value="" name="name">
+        <input class="form-input" type="text" name="name" value="{{ old('name') }}">
+        @error('name')
+          <div class="alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
       <div class="form-item">
         <label>Detail:</label>
-        <textarea class="form-text-area" name="detail"></textarea>
+        <textarea class="form-text-area" name="detail">{{ old('detail') }}</textarea>
       </div>
 
       <div class="form-item">
         <label>Due Date:</label>
-        <input class="form-input" type="date" value="" name="due_date">
+        <input
+          class="form-input"
+          type="date"
+          name="due_date"
+          value="{{ old('due_date') }}"
+        >
+        @error('due_date')
+          <div class="alert-danger">{{ $message }}</div>
+        @enderror
       </div>
 
       <div class="form-item">
         <label>Progress:</label>
         <select class="form-input" name="status">
-          <option value="not_started">Not Started</option>
-          <option value="in_progress">In Progress</option>
-          <option value="in_review">Waiting/In Review</option>
-          <option value="completed">Completed</option>
+          <option @if(old('status') == 'not_started') selected @endif value="not_started">Not Started</option>
+          <option @if(old('status') == 'in_progress') selected @endif value="in_progress">In Progress</option>
+          <option @if(old('status') == 'in_review') selected @endif value="in_review">Waiting/In Review</option>
+          <option @if(old('status') == 'completed') selected @endif value="completed">Completed</option>
         </select>
+        @error('status')
+          <div class="alert-danger">{{ $message }}</div>
+        @enderror
       </div>
       <button type="submit" class="form-button">Submit</button>
     </form>
