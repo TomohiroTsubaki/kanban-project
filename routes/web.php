@@ -18,4 +18,5 @@ Route::prefix('tasks')
         Route::put('{id}/update', 'update')->name('update');
         Route::get('{id}/delete', 'delete')->name('delete');
         Route::delete('{id}/destroy', 'destroy')->name('destroy');
+        Route::get('progress', 'progress')->name('progress');
     });
