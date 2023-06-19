@@ -108,14 +108,25 @@ class TaskController extends Controller
         ]);
     }
 
-public function move(int $id, Request $request)
-{
-    $task = Task::findOrFail($id);
+    public function move(int $id, Request $request)
+    {
+        $task = Task::findOrFail($id);
 
-    $task->update([
-        'status' => $request->status,
-    ]);
+        $task->update([
+            'status' => $request->status,
+        ]);
 
-    return redirect()->route('tasks.progress');
-}
+        return redirect()->route('tasks.progress');
+    }
+
+    public function complete(int $id)
+    {
+        $task = Task::findOrFail($id);
+
+        $task->update([
+            'status' => Task::STATUS_COMPLETED,
+        ]);
+
+        return redirect()->route('tasks.index');
+    }
 }

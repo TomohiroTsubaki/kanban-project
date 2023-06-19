@@ -188,6 +188,11 @@ body {
   cursor: pointer;
   font-size: 28px;
   margin-right: 6px;
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 .check-icon-completed {
@@ -195,6 +200,7 @@ body {
   cursor: default;
   font-size: 28px;
   margin-right: 6px;
+  padding: 1px 6px;
 }
 
 .form {
@@ -301,6 +307,11 @@ body {
 .task-progress-card-top-check {
   color: rgb(197, 197, 197);
   font-size: 28px;
+  border: none;
+  background: none;
+  outline: none;
+  box-shadow: none;
+  cursor: pointer;
 }
 
 .task-progress-card-top-checked {
