@@ -12,5 +12,15 @@
       <span class="material-icons sidebar-icon">check_box</span>
       <p class="sidebar-text">Task Progress</p>
     </a>
+    @if (Auth::check())
+      <a class="sidebar-link" href="{{ route('auth.logout') }}"
+        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+        <span class="material-icons sidebar-icon">logout</span>
+        <p class="sidebar-text">Logout</p>
+      </a>
+      <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" style="display: none;">
+        @csrf
+      </form>
+    @endif
   </div>
 </div>
