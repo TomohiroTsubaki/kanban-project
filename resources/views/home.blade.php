@@ -6,6 +6,7 @@
   <div class="container">
     <div class="main">
       <div class="task-summary-container">
+      <h1 class="task-summary-greeting">Hi, {{ Auth::user()->name }} !</h1>
        <h1 class="task-summary-heading">Summary of Your Tasks</h1>
 
       <div  class="task-summary-list">
