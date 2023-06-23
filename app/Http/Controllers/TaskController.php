@@ -12,6 +12,24 @@ class TaskController extends Controller
     {
     }
 
+    public function home()
+    {
+        $tasks = Task::where('user_id', auth()->id())->get();
+
+        $completed_count = $tasks
+            ->where('status', Task::STATUS_COMPLETED)
+            ->count();
+
+        $uncompleted_count = $tasks
+            ->whereNotIn('status', Task::STATUS_COMPLETED)
+            ->count();
+
+        return view('home', [
+            'completed_count' => $completed_count,
+            'uncompleted_count' => $uncompleted_count,
+        ]);
+    }
+
     public function index()
     {
         $pageTitle = 'Task List';
