@@ -14,5 +14,10 @@ class Task extends Model
     public const STATUS_IN_REVIEW = 'in_review';
     public const STATUS_COMPLETED = 'completed';
 
-    protected $fillable = ['name', 'detail', 'due_date', 'status'];
+    protected $fillable = ['name', 'detail', 'due_date', 'status', 'user_id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

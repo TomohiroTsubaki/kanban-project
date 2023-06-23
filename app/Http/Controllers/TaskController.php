@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TaskController extends Controller
 {
@@ -43,6 +44,7 @@ class TaskController extends Controller
             'detail' => $request->detail,
             'due_date' => $request->due_date,
             'status' => $request->status,
+            'user_id' => Auth::user()->id,
         ]);
 
         return redirect()->route('tasks.index');

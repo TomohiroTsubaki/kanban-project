@@ -19,14 +19,12 @@
       <div class="task-list-header-detail">Detail</div>
       <div class="task-list-header-due-date">Due Date</div>
       <div class="task-list-header-progress">Progress</div>
+      <div class="task-list-header-owner-name">Owner</div>
     </div>
 
     @foreach ($tasks as $index => $task)
       <div class="table-body">
         <div class="table-body-task-name">
-          <!-- <span class="material-icons @if ($task->status == 'completed') check-icon-completed @else check-icon @endif" >
-            check_circle
-          </span> -->
           @if ($task->status == 'completed')
             <span class="material-icons check-icon-completed">check_circle</span>
           @else
@@ -55,6 +53,7 @@
               Not Started
           @endswitch
         </div>
+        <div class="table-body-owner-name">{{ $task->user->name }}</div>
         <div>
           <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
           <a href="{{ route('tasks.delete', ['id' => $task->id]) }}">Delete</a>
