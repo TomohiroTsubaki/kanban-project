@@ -295,6 +295,11 @@ body {
   padding: 0px 4px;
 }
 
+.task-progress-column-plus-icon {
+  text-decoration: none;
+  color: black;
+}
+
 .task-progress-card {
   background-color: rgb(199, 239, 208);
   border-radius: 12px;

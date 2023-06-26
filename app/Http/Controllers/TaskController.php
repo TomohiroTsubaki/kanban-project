@@ -40,10 +40,16 @@ class TaskController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
         $pageTitle = 'Create Task';
-        return view('tasks.create', ['pageTitle' => $pageTitle]);
+        $default_progress = $request->progress
+            ? $request->progress
+            : Task::STATUS_NOT_STARTED;
+        return view('tasks.create', [
+            'pageTitle' => $pageTitle,
+            'default_progress' => $default_progress,
+        ]);
     }
 
     public function store(Request $request)
