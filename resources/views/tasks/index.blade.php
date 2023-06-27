@@ -54,9 +54,13 @@
           @endswitch
         </div>
         <div class="table-body-owner-name">{{ $task->user->name }}</div>
-        <div>
-          <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
-          <a href="{{ route('tasks.delete', ['id' => $task->id]) }}">Delete</a>
+        <div class="table-body-links">
+          @can('update', $task)
+            <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
+          @endcan
+          @can('delete', $task)
+            <a href="{{ route('tasks.delete', ['id' => $task->id]) }}">Delete</a>
+          @endcan
         </div>
       </div>
     @endforeach

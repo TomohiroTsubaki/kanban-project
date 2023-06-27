@@ -186,8 +186,12 @@ body {
 }
 
 .table-body-owner-name {
-  width: 15%;
+  width: 10%;
   padding: 16px;
+}
+
+.table-body-links {
+  width: 10%;
 }
 
 .menu-icon {
