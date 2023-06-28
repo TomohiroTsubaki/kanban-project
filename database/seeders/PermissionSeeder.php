@@ -48,12 +48,12 @@ class PermissionSeeder extends Seeder
             ],
             [
                 'name' => 'delete-any-roles',
-                'description' => 'View all roles',
+                'description' => 'Delete any roles',
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp,
             ],
             [
-                'name' => 'view-other-members',
+                'name' => 'view-member-roles',
                 'description' => 'View other members and their roles',
                 'created_at' => $timestamp,
                 'updated_at' => $timestamp,
