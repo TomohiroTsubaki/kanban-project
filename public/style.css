@@ -208,6 +208,16 @@ body {
   padding: 2px 0;
 }
 
+.table-body-user-name {
+  width: 15%;
+  padding: 16px;
+}
+
+.table-body-user-role {
+  width: 30%;
+  padding: 16px;
+}
+
 .table-body-links {
   width: 10%;
 }

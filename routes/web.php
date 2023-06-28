@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TaskController::class, 'home'])
@@ -53,4 +54,14 @@ Route::prefix('roles')
         Route::put('{id}/update', 'update')->name('update');
         Route::get('{id}/delete', 'delete')->name('delete');
         Route::delete('{id}/destroy', 'destroy')->name('destroy');
+    });
+
+Route::prefix('users')
+    ->name('users.')
+    ->middleware('auth')
+    ->controller(UserController::class)
+    ->group(function () {
+        Route::get('', 'index')->name('index');
+        Route::get('{id}/edit-role', 'editRole')->name('editRole');
+        Route::put('{id}/update-role', 'updateRole')->name('updateRole');
     });
