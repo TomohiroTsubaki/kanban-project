@@ -12,6 +12,9 @@ class RoleController extends Controller
     public function index()
     {
         $pageTitle = 'Role Lists';
+
+        $this->authorize('viewAnyRole', Role::class);
+
         $roles = Role::all();
 
         return view('roles.index', [
@@ -23,6 +26,9 @@ class RoleController extends Controller
     public function create()
     {
         $pageTitle = 'Add Role';
+
+        $this->authorize('createNewRole', Role::class);
+
         $permissions = Permission::all();
         return view('roles.create', [
             'pageTitle' => $pageTitle,
@@ -36,6 +42,8 @@ class RoleController extends Controller
             'name' => ['required'],
             'permissionIds' => ['required'],
         ]);
+
+        $this->authorize('createNewRole', Role::class);
 
         DB::beginTransaction();
         try {
@@ -60,7 +68,7 @@ class RoleController extends Controller
         $role = Role::find($id);
         $permissions = Permission::all();
 
-        $this->authorize('editAnyRole', Role::class);
+        $this->authorize('updateAnyRole', Role::class);
 
         return view('roles.edit', [
             'pageTitle' => $pageTitle,
@@ -76,7 +84,7 @@ class RoleController extends Controller
             'permissionIds' => ['required'],
         ]);
 
-        $this->authorize('editAnyRole', Role::class);
+        $this->authorize('updateAnyRole', Role::class);
 
         DB::beginTransaction();
         try {

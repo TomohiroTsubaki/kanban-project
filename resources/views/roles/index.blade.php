@@ -6,11 +6,13 @@
   <div class="task-list-container">
     <h1 class="task-list-heading">{{ $pageTitle }}</h1>
     <div class="task-list-task-buttons">
-      <a href="{{ route('roles.create') }}">
-        <button  class="task-list-button">
-          <span class="material-icons">add</span>Add Role
-        </button>
-      </a>
+      @can('createNewRole', App\Models\Role::class)
+        <a href="{{ route('roles.create') }}">
+          <button  class="task-list-button">
+            <span class="material-icons">add</span>Add Role
+          </button>
+        </a>
+      @endcan
     </div>
 
     <div>
@@ -34,8 +36,12 @@
           </ul>
         </div>
         <div class="table-body-links">
-          <a href="{{ route('roles.edit', ['id' => $role->id]) }}">Edit</a>
-          <a href="{{ route('roles.delete', ['id' => $role->id]) }}">Delete</a>
+          @can('updateAnyRole', App\Models\Role::class)
+            <a href="{{ route('roles.edit', ['id' => $role->id]) }}">Edit</a>
+          @endcan
+          @can('deleteAnyRole', App\Models\Role::class)
+            <a href="{{ route('roles.delete', ['id' => $role->id]) }}">Delete</a>
+          @endcan
         </div>
         </div>
       @endforeach

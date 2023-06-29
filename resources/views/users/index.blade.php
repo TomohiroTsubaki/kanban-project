@@ -18,9 +18,11 @@
           <div class="table-body-user-role">
               {{ $user->role ? $user->role->name : 'No Role'}}
           </div>
-          <div class="table-body-link">
-            <a href="{{ route('users.editRole', ['id' => $user->id]) }}">Edit Role</a>
-          </div>
+          @can('manageUserRole', App\Models\User::class)
+            <div class="table-body-link">
+              <a href="{{ route('users.editRole', ['id' => $user->id]) }}">Edit Role</a>
+            </div>
+          @endcan
         </div>
       @endforeach
     </div>
