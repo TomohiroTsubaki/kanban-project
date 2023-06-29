@@ -6,22 +6,60 @@ use App\Models\User;
 
 class TaskPolicy
 {
-    public function update($user, $task)
+    protected function getUserPermissions($user)
     {
-        return $user->id == $task->user_id;
+        return $user
+            ->role()
+            ->with('permissions')
+            ->get()
+            ->pluck('permissions')
+            ->flatten()
+            ->pluck('name');
     }
 
-    public function delete($user, $task)
+    public function before($user)
     {
-        return $user->id == $task->user_id;
+        if ($user->role && $user->role->name == 'admin') {
+            return true;
+        }
+
+        return null;
     }
 
-    public function complete($user, $task)
+    public function viewAnyTask($user)
     {
-        return $user->id == $task->user_id;
+        $permissions = $this->getUserPermissions($user);
+
+        if ($permissions->contains('view-any-tasks')) {
+            return true;
+        }
+
+        return false;
     }
 
-    public function move($user, $task)
+    public function updateAnyTask($user)
+    {
+        $permissions = $this->getUserPermissions($user);
+
+        if ($permissions->contains('update-any-tasks')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function deleteAnyTask($user)
+    {
+        $permissions = $this->getUserPermissions($user);
+
+        if ($permissions->contains('delete-any-tasks')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function performAsTaskOwner($user, $task)
     {
         return $user->id == $task->user_id;
     }

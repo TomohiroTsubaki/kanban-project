@@ -55,10 +55,10 @@
         </div>
         <div class="table-body-owner-name">{{ $task->user->name }}</div>
         <div class="table-body-links">
-          @can('update', $task)
+          @canany(['updateAnyTask', 'performAsTaskOwner'], $task)
             <a href="{{ route('tasks.edit', ['id' => $task->id]) }}">Edit</a>
           @endcan
-          @can('delete', $task)
+          @canany(['deleteAnyTask', 'performAsTaskOwner'], $task)
             <a href="{{ route('tasks.delete', ['id' => $task->id]) }}">Delete</a>
           @endcan
         </div>
