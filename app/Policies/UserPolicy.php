@@ -21,7 +21,7 @@ class UserPolicy
     {
         $permissions = $this->getUserPermissions($user);
 
-        if ($permissions->contains('view-member-roles')) {
+        if ($permissions->contains('view-users-and-roles')) {
             return true;
         }
 
@@ -32,7 +32,7 @@ class UserPolicy
     {
         $permissions = $this->getUserPermissions($user);
 
-        if ($permissions->contains('manage-member-roles')) {
+        if ($permissions->contains('manage-user-roles')) {
             return true;
         }
 

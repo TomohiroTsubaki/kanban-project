@@ -37,11 +37,22 @@ class RolePolicy
         return false;
     }
 
-    public function editAnyRole($user)
+    public function createNewRole($user)
     {
         $permissions = $this->getUserPermissions($user);
 
-        if ($permissions->contains('edit-any-roles')) {
+        if ($permissions->contains('create-new-roles')) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function updateAnyRole($user)
+    {
+        $permissions = $this->getUserPermissions($user);
+
+        if ($permissions->contains('update-any-roles')) {
             return true;
         }
 
