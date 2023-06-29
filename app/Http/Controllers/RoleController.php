@@ -60,6 +60,8 @@ class RoleController extends Controller
         $role = Role::find($id);
         $permissions = Permission::all();
 
+        $this->authorize('editAnyRole', Role::class);
+
         return view('roles.edit', [
             'pageTitle' => $pageTitle,
             'permissions' => $permissions,
@@ -73,6 +75,8 @@ class RoleController extends Controller
             'name' => ['required'],
             'permissionIds' => ['required'],
         ]);
+
+        $this->authorize('editAnyRole', Role::class);
 
         DB::beginTransaction();
         try {
@@ -93,12 +97,18 @@ class RoleController extends Controller
     {
         $title = 'Role Delete Page';
         $role = Role::findOrFail($id);
+
+        $this->authorize('deleteAnyRole', Role::class);
+
         return view('roles.delete', ['pageTitle' => $title, 'role' => $role]);
     }
 
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
+
+        $this->authorize('deleteAnyRole', Role::class);
+
         if (count($role->users) > 0) {
             return back()->with(
                 'message-error',

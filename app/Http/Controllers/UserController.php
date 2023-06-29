@@ -11,6 +11,7 @@ class UserController extends Controller
     public function index()
     {
         $pageTitle = 'Users List';
+        $this->authorize('viewUserRole', User::class);
         $users = User::all();
         return view('users.index', [
             'users' => $users,
@@ -24,6 +25,8 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $roles = Role::all();
 
+        $this->authorize('manageUserRole', User::class);
+
         return view('users.edit_role', [
             'pageTitle' => $pageTitle,
             'user' => $user,
@@ -34,6 +37,9 @@ class UserController extends Controller
     public function updateRole($id, Request $request)
     {
         $user = User::findOrFail($id);
+
+        $this->authorize('manageUserRole', User::class);
+
         $user->update([
             'role_id' => $request->role_id,
         ]);
