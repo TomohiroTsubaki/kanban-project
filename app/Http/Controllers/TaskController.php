@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Task;
+use App\Models\TaskFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 
 class TaskController extends Controller
 {
@@ -66,19 +68,50 @@ class TaskController extends Controller
                 'name' => 'required',
                 'due_date' => 'required',
                 'status' => 'required',
+                'file' => ['max:5000', 'mimes:pdf,jpeg,png'],
+            ],
+            [
+                'file.max' => 'The file size exceed 5 mb',
+                'file.mimes' => 'Must be a file of type: pdf,jpeg,png',
             ],
             $request->all()
         );
 
-        Task::create([
-            'name' => $request->name,
-            'detail' => $request->detail,
-            'due_date' => $request->due_date,
-            'status' => $request->status,
-            'user_id' => Auth::user()->id,
-        ]);
+        DB::beginTransaction();
+        try {
+            $task = Task::create([
+                'name' => $request->name,
+                'detail' => $request->detail,
+                'due_date' => $request->due_date,
+                'status' => $request->status,
+                'user_id' => Auth::user()->id,
+            ]);
 
-        return redirect()->route('tasks.index');
+            $file = $request->file('file');
+            if ($file) {
+                $filename = $file->getClientOriginalName();
+                $path = $file->storePubliclyAs(
+                    'tasks',
+                    $file->hashName(),
+                    'public'
+                );
+
+                TaskFile::create([
+                    'task_id' => $task->id,
+                    'filename' => $filename,
+                    'path' => $path,
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('tasks.index');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()
+                ->route('tasks.create')
+                ->with('error', $th->getMessage());
+        }
     }
 
     public function edit($id)
